@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montez&display=swap');
+#header {
+    padding: 2em 0 0 0;
+}
+
+#header div.logo {
+    display: inline-block;
+    font-family: 'Montez', cursive;
+    text-transform: none;
+    font-weight: 400;
+    font-size: 60px;
+    letter-spacing: normal;
+    color: #999999;
+    margin: 0 0 20px 0;
+}
+
+#header div.logo>* {
+    vertical-align: baseline;
+}
+
+#header div.logo span {
+    color: #000000;
+}
