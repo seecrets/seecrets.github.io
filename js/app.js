@@ -5,7 +5,7 @@
 				["home", "join"] :
 				["home", "publish", "chat", "wallet", "account"]
 		);
-	}
+	};
 
 	function setTab(tab) {
 		document.getElementsByTagName("body")[0].classList.remove("tab-home", "tab-publish", "tab-chat", "tab-wallet", "tab-account", "tab-join");
