@@ -19,7 +19,8 @@
 	--color-title-light: #999;
 	--color-gray-very-light: #f4f4f4;
 	--color-gray-light: #aaa;
-	--color-gray-dark: #666;
+	--color-gray-dark: #999;
+	--color-gray-very-dark: #666;
 	--min-body-width: 320px;
 }
 
@@ -193,14 +194,13 @@ body.app {
 **********************************************************************************************************************/
 
 body.app header h1#logo {
-	display: none;
+	display: inline-block;
 	flex-grow: 1;
-	flex-basis: 200px;
+	flex-basis: 180px;
 	text-align: left;
-	max-width: 300px;
 	font-family: "Montez", cursive;
 	font-weight: 400;
-	font-size: 40px;
+	font-size: 36px;
 	line-height: 1;
 	margin: 0;
 	padding: 0 10px;
@@ -217,7 +217,9 @@ body.app header h1#logo {
 
 	@media (min-width: 768px) {
 		body.app header h1#logo {
-			display: inline-block;
+			flex-basis: 200px;
+			max-width: 400px;
+			font-size: 40px;
 		}
 	}
 
@@ -236,11 +238,13 @@ body.app header nav {
 	align-items: center;
 	align-content: center;
 	width: 100%;
+	max-width: 350px;
 	column-gap: var(--tab-gap);
 	padding: 0 10px;
 	position: relative;
+
 	--tab-gap: 10px;
-	--tab-width: calc((100% - 60px) / 5);
+	--tab-width: calc((100% - 50px) / 4);
 }
 
 	body.app header nav a {
@@ -262,12 +266,11 @@ body.app header nav {
 		}
 
 		body.app header nav a:hover,
-		body.app.tab-home header nav a[data-tab="home"],
-		body.app.tab-chat header nav a[data-tab="chat"],
 		body.app.tab-publish header nav a[data-tab="publish"],
+		body.app.tab-chat header nav a[data-tab="chat"],
 		body.app.tab-wallet header nav a[data-tab="wallet"],
 		body.app.tab-account header nav a[data-tab="account"] {
-			color: var(--color-gray-dark);
+			color: var(--color-gray-very-dark);
 		}
 
 	body.app header nav a i {
@@ -298,17 +301,18 @@ body.app header nav {
 		height: 100%;
 		top: 0;
 		z-index: -1;
-		transition: left 0.2s ease 0s;
+		transition:	left 0.2s ease 0s,
+					opacity 0.35s ease 0s;
 	}
-		body.app.tab-home header nav::before {left: var(--tab-gap);}
+		body.app.tab-home header nav::before {left: calc(-1 * (var(--tab-gap) + var(--tab-width))); opacity: 0;}
+		body.app.tab-publish header nav::before {left: var(--tab-gap);}
 		body.app.tab-chat header nav::before {left: calc(2 * var(--tab-gap) + var(--tab-width));}
-		body.app.tab-publish header nav::before {left: calc(3 * var(--tab-gap) + 2 * var(--tab-width));}
-		body.app.tab-wallet header nav::before {left: calc(4 * var(--tab-gap) + 3 * var(--tab-width));}
-		body.app.tab-account header nav::before {left: calc(5 * var(--tab-gap) + 4 * var(--tab-width));}
+		body.app.tab-wallet header nav::before {left: calc(3 * var(--tab-gap) + 2 * var(--tab-width));}
+		body.app.tab-account header nav::before {left: calc(4 * var(--tab-gap) + 3 * var(--tab-width));}
 
 	@media (min-width: 768px) {
 		body.app header nav {
-			max-width: 700px;
+			max-width: 550px;
 		}
 
 			body.app header nav a {

@@ -1,12 +1,25 @@
 (function() {
 
-	const setTab = function(tab) {
-		document.getElementsByTagName("body")[0].classList.remove("tab-home", "tab-chat", "tab-publish", "tab-wallet", "tab-account");
+	const tabs = ["home", "publish", "chat", "wallet", "account"];
+
+	function setTab(tab) {
+		document.getElementsByTagName("body")[0].classList.remove("tab-home", "tab-publish", "tab-chat", "tab-wallet", "tab-account");
 		document.getElementsByTagName("body")[0].classList.add("tab-" + tab);
 	};
 
-	// Tab links
-	document.querySelectorAll("body.app header nav a").forEach(item => {
+	function swipeTabs(direction) {
+		const body = document.getElementsByTagName("body")[0];
+		for (const [index, tab] of tabs.entries()) {
+			if (body.classList.contains("tab-" + tab)) {
+				setTab(tabs[(index + tabs.length + (direction === "right" ? -1 : +1)) % tabs.length]);
+				break;
+			}
+		}
+	};
+
+
+	// Initialize Tab links
+	document.querySelectorAll("body.app header a[data-tab]").forEach(item => {
 		item.addEventListener("click", event => {
 			setTab(item.dataset.tab);
 			event.preventDefault();
@@ -15,23 +28,10 @@
 
 	// Swipe management
 	(function() {
-
-		const tabs = ["home", "chat", "publish", "wallet", "account"];
-		let direction = null;
 		let touchstartX = 0;
 		let touchstartY = 0;
 		let touchendX = 0;
 		let touchendY = 0;
-
-		function switchTab() {
-			const body = document.getElementsByTagName("body")[0];
-			for (const [index, tab] of tabs.entries()) {
-				if (body.classList.contains("tab-" + tab)) {
-					setTab(tabs[(index + tabs.length + (direction === "right" ? -1 : +1)) % tabs.length]);
-					break;
-				}
-			}
-		}
 
 		function handleGesture(touchstartX, touchstartY, touchendX, touchendY) {
 			const delx = touchendX - touchstartX;
@@ -56,7 +56,7 @@
 			touchendY = event.changedTouches[0].screenY;
 			direction = handleGesture(touchstartX, touchstartY, touchendX, touchendY);
 			if (direction === "left" || direction === "right") {
-				switchTab();
+				swipeTabs(direction);
 			}
 		}, false);
 	})();
