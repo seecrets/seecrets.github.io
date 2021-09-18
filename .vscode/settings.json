@@ -1,0 +1,16 @@
+{
+	"prettier.useTabs": true,
+	"html.format.enable": false,
+	"typescript.format.enable": false,
+	"css.lint.duplicateProperties": "warning",
+	"css.lint.float": "warning",
+	"css.lint.important": "warning",
+	"css.lint.importStatement": "warning",
+	"css.lint.universalSelector": "warning",
+	"[css]": {
+		"editor.suggest.insertMode": "replace",
+		"gitlens.codeLens.scopes": [
+			"document"
+		]
+	}
+}
