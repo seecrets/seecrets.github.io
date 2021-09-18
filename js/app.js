@@ -1,14 +1,20 @@
 (function() {
-
-	const tabs = ["home", "publish", "chat", "wallet", "account"];
+	function getTabs() {
+		return (
+			document.getElementsByTagName("body")[0].classList.contains("no-user") ?
+				["home", "join"] :
+				["home", "publish", "chat", "wallet", "account"]
+		);
+	}
 
 	function setTab(tab) {
-		document.getElementsByTagName("body")[0].classList.remove("tab-home", "tab-publish", "tab-chat", "tab-wallet", "tab-account");
+		document.getElementsByTagName("body")[0].classList.remove("tab-home", "tab-publish", "tab-chat", "tab-wallet", "tab-account", "tab-join");
 		document.getElementsByTagName("body")[0].classList.add("tab-" + tab);
 	};
 
 	function swipeTabs(direction) {
 		const body = document.getElementsByTagName("body")[0];
+		const tabs = getTabs();
 		for (const [index, tab] of tabs.entries()) {
 			if (body.classList.contains("tab-" + tab)) {
 				setTab(tabs[(index + tabs.length + (direction === "right" ? -1 : +1)) % tabs.length]);
@@ -17,11 +23,19 @@
 		}
 	};
 
-
 	// Initialize Tab links
 	document.querySelectorAll("body.app header a[data-tab]").forEach(item => {
 		item.addEventListener("click", event => {
 			setTab(item.dataset.tab);
+			event.preventDefault();
+		})
+	});
+
+	// Initialize login/out buttons
+	document.querySelectorAll("body.app button").forEach(item => {
+		item.addEventListener("click", event => {
+			document.getElementsByTagName("body")[0].classList.toggle("no-user");
+			setTab("home");
 			event.preventDefault();
 		})
 	});
